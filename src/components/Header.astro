@@ -294,10 +294,27 @@ import Logo from "@/assets/logo.png"
 	const burger = document.querySelector("#burger")
 	const containerNav = document.querySelector(".nav-container")
 	const containerNav2 = document.querySelector(".nav-container2")
-	// const button = document.querySelector(".button")
+	const navLinks = document.querySelectorAll(".nav-link a")
+	const burgerCheckbox = document.getElementById("burger")
 
+	// Función para cerrar el menú
+	function closeMenu() {
+		containerNav.classList.remove("active")
+		containerNav2.classList.remove("active")
+		burgerCheckbox.checked = false
+	}
+
+	// Evento para el botón hamburguesa
 	burger.addEventListener("click", () => {
 		containerNav.classList.toggle("active")
 		containerNav2.classList.toggle("active")
+	})
+
+	// Eventos para los enlaces de navegación
+	navLinks.forEach((link) => {
+		// Saltamos el enlace de Blog como pediste
+		if (link.getAttribute("href") !== "#blog") {
+			link.addEventListener("click", closeMenu)
+		}
 	})
 </script>

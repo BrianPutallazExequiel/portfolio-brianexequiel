@@ -60,6 +60,7 @@
         animation: none !important;
         -webkit-transition: none !important;
         transition: none !important;
+        -webkit-tap-highlight-color: transparent;
     }
 }
 
@@ -90,6 +91,7 @@ a {
     text-decoration: none;
     color: inherit;
     font: inherit;
+    -webkit-tap-highlight-color: transparent;
 }
 
 p a {
@@ -151,6 +153,7 @@ label {
     background-color: transparent;
     color: inherit;
     display: block;
+    -webkit-tap-highlight-color: transparent;
 }
 
 textarea {

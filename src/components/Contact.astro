@@ -4,7 +4,7 @@ import MeetingImg from "@/assets/meeting.png"
 import Button from "@/components/Button.astro"
 ---
 
-<section class="container-contact">
+<section class="container-contact" id="contact">
     <div class="container-img">
         <Image src={MeetingImg} alt="" />
     </div>
@@ -51,6 +51,7 @@ import Button from "@/components/Button.astro"
         width: 100%;
         height: 100vh;
         padding-inline: 1rem;
+        scroll-margin-top: 30px;
     }
     .container-img {
         width: 50%;
