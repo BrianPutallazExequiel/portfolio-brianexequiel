@@ -24,10 +24,10 @@ import Logo from "@/assets/logo.png"
 	<div class="nav-container">
 		<nav class="nav">
 			<ul class="nav-list">
-				<li><a href="/">Sobre mi</a></li>
-				<li><a href="/">Proyectos</a></li>
-				<li><a href="/">Blog</a></li>
-				<li><a href="/">Contacto</a></li>
+				<li class="nav-link"><a href="#about">Sobre mi</a></li>
+				<li class="nav-link"><a href="#projects">Proyectos</a></li>
+				<li class="nav-link"><a href="#blog">Blog</a></li>
+				<li class="nav-link"><a href="#contact">Contacto</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -36,7 +36,7 @@ import Logo from "@/assets/logo.png"
 			<Theme class="theme-switch" />
 			<LanguageSelector />
 			<div class="button">
-				<Button variant="primary" title="Contactame" href="#contacto"></Button>
+				<Button variant="primary" title="Contactame" href="#contacto" />
 			</div>
 		</div>
 	</div>
@@ -84,7 +84,6 @@ import Logo from "@/assets/logo.png"
 		font-weight: 600;
 		white-space: nowrap;
 	}
-
 	.label {
 		height: 6.25rem;
 		grid-area: label;
@@ -179,6 +178,7 @@ import Logo from "@/assets/logo.png"
 		align-self: flex-end; /* Alinea al fondo */
 		padding: 0;
 		list-style: none;
+		cursor: pointer;
 	}
 
 	.nav-container2 {
@@ -198,7 +198,24 @@ import Logo from "@/assets/logo.png"
 		align-self: flex-start;
 		gap: 1rem;
 	}
-	
+	.nav-link {
+		position: relative;
+	}
+
+	.nav-link::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: -2px;
+		width: 0;
+		height: 2px;
+		background: var(--gradient);
+		transition: width 0.3s ease;
+	}
+
+	.nav-link:hover::after {
+		width: 100%;
+	}
 	.button {
 		display: none;
 	}
@@ -282,6 +299,5 @@ import Logo from "@/assets/logo.png"
 	burger.addEventListener("click", () => {
 		containerNav.classList.toggle("active")
 		containerNav2.classList.toggle("active")
-		
 	})
 </script>
