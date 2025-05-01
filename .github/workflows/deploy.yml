@@ -1,29 +1,42 @@
 name: Deploy Astro Site
+
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Necesario para gh-pages
+
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'  # 👈 Cache opcional para acelerar builds
-          
-      - name: Install pnpm
-        run: npm install -g pnpm@8  # 👈 Instala pnpm globalmente
-      
+          node-version: "20"
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: "8"
+          run_install: false
+
       - name: Install dependencies
-        run: pnpm install  # 👈 Ahora reconocerá el comando
-        
-      - name: Build
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Astro site
         run: pnpm run build
-        
-      - uses: peaceiris/actions-gh-pages@v3
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./distgit
+          publish_dir: ./dist
+          keep_files: false # Limpia el deploy anterior
