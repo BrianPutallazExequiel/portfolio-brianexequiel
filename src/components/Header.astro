@@ -7,12 +7,12 @@ import Logo from "@/assets/logo.png"
 ---
 
 <header class="header">
-	<div class="logo-container">
+	<a href="./" class="logo-container">
 		<div class="logo">
 			<Image class="logo-img" src={Logo} alt="Hola" />
 			<h1 class="title">Brian Exequiel</h1>
 		</div>
-	</div>
+	</a>
 	<div class="label">
 		<label class="burger" for="burger">
 			<input type="checkbox" id="burger" />
@@ -66,6 +66,7 @@ import Logo from "@/assets/logo.png"
 		justify-content: flex-start;
 		height: 6.25rem;
 		z-index: 100;
+		cursor: pointer;
 	}
 
 	.logo {
