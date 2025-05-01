@@ -1,10 +1,18 @@
 ---
+// Componente de toggle dark/light mode para Astro
+import { onMount } from 'astro:jsx';
 
+// Verificar el tema preferido del sistema o el guardado en localStorage
+const userPreference = typeof window !== 'undefined' 
+  ? localStorage.getItem('theme') || 
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  : 'light';
 ---
 
-<!-- From Uiverse.io by Galahhad -->
+<!-- From Uiverse.io by Galahad -->
 <label class="theme-switch">
-    <input type="checkbox" class="theme-switch__checkbox" />
+    <input type="checkbox" class="theme-switch__checkbox" id="theme-toggle" 
+           checked={userPreference === 'dark'} />
     <div class="theme-switch__container">
         <div class="theme-switch__clouds"></div>
         <div class="theme-switch__stars-container">
@@ -34,8 +42,50 @@
     </div>
 </label>
 
+<script is:inline>
+    // Función para aplicar el tema
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }
+
+    // Verificar el tema al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Establecer tema inicial
+        const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+        applyTheme(initialTheme);
+        
+        // Configurar el estado del toggle
+        if (themeToggle) {
+            themeToggle.checked = initialTheme === 'dark';
+            
+            // Manejar cambios en el toggle
+            themeToggle.addEventListener('change', (e) => {
+                const theme = e.target.checked ? 'dark' : 'light';
+                applyTheme(theme);
+            });
+        }
+    });
+
+    // Escuchar cambios en las preferencias del sistema
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        const newTheme = e.matches ? 'dark' : 'light';
+        if (!localStorage.getItem('theme')) {
+            applyTheme(newTheme);
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.checked = newTheme === 'dark';
+            }
+        }
+    });
+</script>
+
 <style>
-    /* From Uiverse.io by Galahhad */
+    /* From Uiverse.io by Galahad */
     .theme-switch {
         --toggle-size: 13px;
         --container-width: 5.625em;

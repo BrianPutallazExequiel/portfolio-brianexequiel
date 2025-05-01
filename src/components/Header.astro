@@ -56,8 +56,8 @@ import Logo from "@/assets/logo.png"
 		position: fixed;
 		left: 0;
 		top: 0;
-		background: rgba(255, 255, 255);
 		z-index: 100;
+		background-color: var(--color-bg);
 	}
 
 	.logo-container {
@@ -83,6 +83,7 @@ import Logo from "@/assets/logo.png"
 		font-size: 1.5rem;
 		font-weight: 600;
 		white-space: nowrap;
+		color: var(--black);
 	}
 	.label {
 		height: 6.25rem;
@@ -114,7 +115,7 @@ import Logo from "@/assets/logo.png"
 		position: absolute;
 		height: 4px;
 		width: 100%;
-		background: black;
+		background: var(--black);
 		border-radius: 9px;
 		opacity: 1;
 		left: 0;
@@ -200,6 +201,7 @@ import Logo from "@/assets/logo.png"
 	}
 	.nav-link {
 		position: relative;
+		color: var(--black);
 	}
 
 	.nav-link::after {
@@ -245,7 +247,7 @@ import Logo from "@/assets/logo.png"
 			left: 50%;
 			transform: translateX(-50%);
 			z-index: -1;
-			background: rgba(255, 255, 255);
+			background: var(--color-bg);
 			top: 0;
 		}
 

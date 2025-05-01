@@ -121,12 +121,12 @@
             </g>
         </svg>
     </div>
-    <span id="currentLanguage">ES</span>
+    <span id="currentLanguage" class="text">ES</span>
 
     <!-- Aquí puedes insertar tu SVG de la flecha -->
     <div class="arrow-down" id="arrowDown">
         <!-- SVG de flecha hacia abajo -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 10l5 5m0 0l5-5"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 10l5 5m0 0l5-5"/></svg>
     </div>
 
     <!-- Opciones de idioma -->
@@ -261,7 +261,7 @@
                     </g>
                 </svg>
             </div>
-            <span>ES</span>
+            <span class="text">ES</span>
         </div>
         <div class="language-option" data-lang="en">
             <!-- SVG de Estados Unidos -->
@@ -287,7 +287,7 @@
                     </g>
                 </svg>
             </div>
-            <span>EN</span>
+            <span class="text">EN</span>
         </div>
     </div>
 </div>
@@ -346,6 +346,9 @@
 
     .language-option:hover {
         background-color: var(--white);
+    }
+    .text {
+        color: var(--black);
     }
 </style>
 
