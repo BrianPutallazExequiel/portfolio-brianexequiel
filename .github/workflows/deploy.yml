@@ -7,12 +7,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: pnpm install
-      - run: pnpm run build
+          cache: 'pnpm'  # 👈 Cache opcional para acelerar builds
+          
+      - name: Install pnpm
+        run: npm install -g pnpm@8  # 👈 Instala pnpm globalmente
+      
+      - name: Install dependencies
+        run: pnpm install  # 👈 Ahora reconocerá el comando
+        
+      - name: Build
+        run: pnpm run build
+        
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./distgit
