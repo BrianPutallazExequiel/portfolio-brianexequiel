@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+# Define los eventos que activan el flujo
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Permite ejecutar manualmente desde la pestaña Actions
+
+# Permisos necesarios para el despliegue
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita que múltiples despliegues simultáneos se superpongan
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install, build, and upload site
+        uses: withastro/action@v3
+        with:
+          node-version: 22.14 # Versión de Node.js (ajusta si usas otra)
+          package-manager: pnpm # Cambiado a pnpm
+          # Opcional: especificರ
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
