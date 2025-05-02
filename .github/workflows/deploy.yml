@@ -1,40 +1,43 @@
-name: Deploy Astro Site
+name: Deploy to GitHub Pages
 
+# Define los eventos que activan el flujo
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch: # Permite ejecutar manualmente desde la pestaña Actions
+
+# Permisos necesarios para el despliegue
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita que múltiples despliegues simultáneos se superpongan
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Install, build, and upload site
+        uses: withastro/action@v3
         with:
-          node-version: "20"
-          cache: 'pnpm'
+          node-version: 22.14 # Versión de Node.js (ajusta si usas otra)
+          package-manager: pnpm # Cambiado a pnpm
+          # Opcional: especificರ
 
-      # 👇 Paso CRÍTICO - Instalación de pnpm
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: "8"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build project
-        run: pnpm run build
-
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+        id: deployment
+        uses: actions/deploy-pages@v4
